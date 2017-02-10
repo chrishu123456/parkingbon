@@ -57,6 +57,8 @@ namespace ParkingBon
             TeBetalenLabel.Content = bedrag.ToString() + " €";
 
             VertrekLabelTijd.Content = Convert.ToDateTime(AankomstLabelTijd.Content).AddHours(0.5 * bedrag).ToLongTimeString();
+
+            if (bedrag == 0) { SaveEnAfdruk(false); }
         }
 
         private void meer_Click(object sender, RoutedEventArgs e)
@@ -70,6 +72,8 @@ namespace ParkingBon
 
             TeBetalenLabel.Content = bedrag.ToString() + " €";
             VertrekLabelTijd.Content = Convert.ToDateTime(AankomstLabelTijd.Content).AddHours(0.5 * bedrag).ToLongTimeString();
+
+            if (bedrag > 0) { SaveEnAfdruk(true); }
         }
 
         private void NewExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -94,7 +98,8 @@ namespace ParkingBon
                         TeBetalenLabel.Content = bestand.ReadLine();
                         VertrekLabelTijd.Content = bestand.ReadLine();
                     }
-
+                    naambestand.Content = dlg.FileName;
+                    SaveEnAfdruk(true);
                 }
                 
             }
@@ -106,6 +111,14 @@ namespace ParkingBon
             
 
 
+        }
+
+        private void SaveEnAfdruk(Boolean actief)
+        {
+           // PrintPreviewButton.IsEnabled = actief;
+           SaveButton.IsEnabled = actief;
+           // BonAfdrukken.IsEnabled = actief;
+           BonOpslaan.IsEnabled = actief;
         }
 
         private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -132,8 +145,9 @@ namespace ParkingBon
                 dlg.DefaultExt = ".bon";
                 dlg.Filter = "bons | *.bon";
 
-              
-
+                int lengte = TeBetalenLabel.Content.ToString().Length;
+                int eurotekenpos = TeBetalenLabel.Content.ToString().IndexOf(" €");
+                int bedrag = int.Parse(TeBetalenLabel.Content.ToString().Substring(0, lengte - eurotekenpos - 1));
 
                 if (dlg.ShowDialog() == true)
                 {
@@ -145,6 +159,10 @@ namespace ParkingBon
                         bestand.WriteLine(VertrekLabelTijd.Content);
                     }
                 }
+
+                naambestand.Content = dlg.FileName;
+
+
                
             }
 
@@ -152,6 +170,11 @@ namespace ParkingBon
             {
                 MessageBox.Show("crash" + ex.Message);
             }
+        }
+
+        private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

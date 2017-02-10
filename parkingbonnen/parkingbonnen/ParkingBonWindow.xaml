@@ -10,15 +10,66 @@
         <CommandBinding Command="Open" Executed="OpenExecuted" />
 
         <CommandBinding Command="Save" Executed="SaveExecuted" />
-       
+
+        <CommandBinding Command="Close" Executed="CloseExecuted" />
         
     </Window.CommandBindings>
 
+    <DockPanel>
+    <Menu Name="menubalk" DockPanel.Dock="Top" VerticalAlignment="Top">
+        <MenuItem Header="Bon Operaties">
+            <MenuItem Header="Nieuwe Bon" Command="New"></MenuItem>
+            <MenuItem Header="Bon Openen" Command="Open"></MenuItem>
+            <MenuItem Name="BonOpslaan" Header="Bon Opslaan" Command="Save" IsEnabled="False" ></MenuItem>
+            <MenuItem Name="Bonafdrukken" Header="Bon afdrukken" Command="Print" IsEnabled="False"></MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Afsluiten" Command="Close"></MenuItem>
+        </MenuItem>
+    </Menu>
+    <ToolBarTray DockPanel.Dock="Top">
+        <ToolBar>
+            <Button Command="New">
+                <StackPanel>
+                    <Image Source="Images/new.jpg" Height="40"></Image>
+                    <Label Content="Nieuw"></Label>
+                </StackPanel>
+            </Button>
 
+            <Button Command="Open">
+                <StackPanel>
+                    <Image Source="Images/open.jpg" Height="40"></Image>
+                    <Label Content="Openen"></Label>
+                </StackPanel>
+
+            </Button>
+            <Button Name="SaveButton" Command="Save" IsEnabled="False">
+                <StackPanel>
+                    <Image Source="Images/save.jpg" Height="40"></Image>
+                    <Label Content="Opslaan" ></Label>
+                </StackPanel>
+            </Button>
+
+            <Button Command="PrintPreview" IsEnabled="False">
+                <StackPanel>
+                    <Image Source="Images/print.jpg" Height="40"></Image>
+                    <Label Content="Afdrukvoorbeeld"></Label>
+                </StackPanel>
+            </Button>
+            <Button Command="Close">
+                <StackPanel>
+                    <Image Source="Images/close.jpg" Height="40"></Image>
+                    <Label Content="Afsluiten"></Label>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+    </ToolBarTray>
+
+        <StatusBar DockPanel.Dock="Bottom" Height="24">
+            <StatusBarItem Name="naambestand"></StatusBarItem>
+    </StatusBar>
+    
     <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="24"></RowDefinition>
-            <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
@@ -29,69 +80,25 @@
                 <ColumnDefinition Width="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-        <Menu Name="menubalk" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
-            <MenuItem Header="Bon Operaties">
-                <MenuItem Header="Nieuwe Bon" Command="New"></MenuItem>
-                <MenuItem Header="Bon Openen" Command="Open"></MenuItem>
-                <MenuItem Header="Bon Opslaan" Command="Save"></MenuItem>
-                <MenuItem Header="Bon afdrukken" Command="Print"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Afsluiten" Command="Close"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <ToolBar>
-                <Button Command="New">
-                    <StackPanel>
-                        <Image Source="Images/new.jpg" Height="40"></Image>
-                        <Label Content="Nieuw"></Label>
-                    </StackPanel>
-                </Button>
-
-                <Button Command="Open">
-                    <StackPanel>
-                        <Image Source="Images/open.jpg" Height="40"></Image>
-                        <Label Content="Openen"></Label>
-                    </StackPanel>
-                    
-                </Button>
-                <Button Command="Save">
-                    <StackPanel>
-                        <Image Source="Images/save.jpg" Height="40"></Image>
-                        <Label Content="Opslaan"></Label>
-                    </StackPanel>
-                </Button>
-                
-                <Button Command="PrintPreview">
-                    <StackPanel>
-                        <Image Source="Images/print.jpg" Height="40"></Image>
-                        <Label Content="Afdrukvoorbeeld"></Label>
-                    </StackPanel>
-                </Button>
-                <Button Command="Close">
-                    <StackPanel>
-                        <Image Source="Images/close.jpg" Height="40"></Image>
-                        <Label Content="Afsluiten"></Label>
-                    </StackPanel>
-               </Button>
-            </ToolBar>
-        </ToolBarTray>
-        
-            
+ 
         
         
-        <Image Name="logoImage" Source="images\parkingbon.jpg" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="10,0"></Image>
-        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold"> 1€ per half uur tot 22.00u</TextBlock>
-            <DatePicker Name="DatumBon" Grid.Row="2" Grid.Column="1" ToolTip="datum selecteren" SelectedDateFormat="Long" VerticalAlignment="Center" Margin="0,38,50,38"></DatePicker>
-            <Label Name="AankomstLabel" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="Aankomsttijd:"></Label>
-            <Label Name="AankomstLabelTijd" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="200" HorizontalContentAlignment="Center"></Label>
-            <Label Name="BedragLabel" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" Content="Bedrag:"></Label>
-            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <Image Name="logoImage" Source="images\parkingbon.jpg" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="10,0"></Image>
+        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold"> 1€ per half uur tot 22.00u</TextBlock>
+            <DatePicker Name="DatumBon" Grid.Row="0" Grid.Column="1" ToolTip="datum selecteren" SelectedDateFormat="Long" VerticalAlignment="Center" Margin="0,38,50,38"></DatePicker>
+        
+            <Label Name="AankomstLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Aankomsttijd:"></Label>
+            <Label Name="AankomstLabelTijd" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="200" HorizontalContentAlignment="Center"></Label>
+            <Label Name="BedragLabel" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Content="Bedrag:"></Label>
+        
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <RepeatButton Margin="20,0"  Name="minder" Width="20" Content="-" FontSize="14" FontWeight="ExtraBold" Click="minder_Click"></RepeatButton>
                 <Label Name="TeBetalenLabel" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="100" Content="0 €"></Label>
                 <RepeatButton Margin="20,0"  Name="meer" HorizontalAlignment="Center" Width="20" Content="+" FontSize="14" FontWeight="ExtraBold" Click="meer_Click"></RepeatButton>
             </StackPanel>
-            <Label Name="VertrekLabel" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" Content="Vertrektijd:"></Label>
-            <Label Name="VertrekLabelTijd" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Width="200" HorizontalContentAlignment="Center"></Label>
+            
+            <Label Name="VertrekLabel" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="Vertrektijd:"></Label>
+            <Label Name="VertrekLabelTijd" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="200" HorizontalContentAlignment="Center"></Label>
         </Grid>
+    </DockPanel>
 </Window>

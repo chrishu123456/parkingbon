@@ -83,10 +83,20 @@ namespace ParkingBon
             {
                 OpenFileDialog dlg = new OpenFileDialog();
 
-                using (StreamReader bestand = new StreamReader(dlg.FileName))
+                dlg.Filter = "bons | *.bon";
+
+                if (dlg.ShowDialog() == true )
                 {
+                    using (StreamReader bestand = new StreamReader(dlg.FileName))
+                    {
+                        DatumBon.SelectedDate = Convert.ToDateTime(bestand.ReadLine());
+                        AankomstLabelTijd.Content = bestand.ReadLine();
+                        TeBetalenLabel.Content = bestand.ReadLine();
+                        VertrekLabelTijd.Content = bestand.ReadLine();
+                    }
 
                 }
+                
             }
 
             catch (Exception ex)
